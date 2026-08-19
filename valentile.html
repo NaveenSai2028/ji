@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Someone Special ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff4d6d;
+            --glow: #ff85a1;
+            --dark: #121212;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Animated Gradient Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #2b0b14 0%, #000000 100%);
+            z-index: -1;
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 77, 109, 0.2);
+            position: relative;
+            z-index: 10;
+            max-width: 400px;
+            width: 90%;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Pure CSS Heart Icon */
+        .heart-icon {
+            font-size: 60px;
+            color: var(--pink);
+            text-shadow: 0 0 20px var(--pink);
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            font-size: 2.5rem;
+            margin: 0 0 30px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s all;
+            font-size: 1rem;
+        }
+
+        #yesBtn {
+            background: var(--pink);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--pink);
+        }
+
+        #noBtn {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            position: absolute;
+        }
+
+        /* Falling Hearts Background */
+        .falling-heart {
+            position: absolute;
+            top: -10%;
+            color: var(--pink);
+            opacity: 0.5;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-gradient"></div>
+
+    <div class="card" id="mainCard">
+        <div class="heart-icon">❤️</div>
+        <h1 id="headline">Will you be my Valentine Jii?</h1>
+        <div class="btn-wrapper">
+            <button class="btn" id="yesBtn">YES!</button>
+            <button class="btn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const headline = document.getElementById('headline');
+        const card = document.getElementById('mainCard');
+
+        // Logic for the elusive "No" button
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.position = 'fixed';
+        });
+
+        // Logic for "Yes" click
+        yesBtn.addEventListener('click', () => {
+            headline.innerHTML = "I'm the luckiest! ❤️<br>  Lub Uh ji🫣🙈";
+            headline.style.color = "#ff85a1";
+            noBtn.style.display = 'none';
+            yesBtn.style.display = 'none';
+            
+            // Success Effect: Change card appearance
+            card.style.boxShadow = "0 0 60px #ff4d6d";
+            
+            // Trigger massive heart fall
+            for(let i=0; i<50; i++) {
+                createHeart();
+            }
+        });
+
+        // Background Heart Generator
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
